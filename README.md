@@ -9,13 +9,56 @@
 <p>I started off by making sudo code for the program, which can be found below.  I then used that code as a guideline to make my finished project.</p>
 
 ### Pseudocode:
-  '''
-  function gather_information():
+  ```
+  attempt_counter = 0
+  
+  function gather_username_and_password():
     entered_username = input("Username:")
     entered_password = input("Password:")
+    attempt_counter = attempt_counter + 1
     
-  fuction md5(entered_password):
+  fuction encyrpt_password(entered_password):
     return encrypted_password
-  for each_password in credentials_file:
-    if encrypted_pass
-  '''
+    
+  function check_credentials(entered_username):
+    correct_username = check_username()
+    if correct_username:
+      correct_password = check_password()
+        if correct_password:
+          allow_access()
+    else:
+      if attempt_counter < 3:
+        gather_username_and_password()
+      else:
+        print("You have entered incorrect credentials three times.  This program is now exiting.")
+        system.exit()
+    
+      
+  function check_username():
+    for each_username in credentials_file:
+      if entered_username == current_username:
+        return true
+      else:
+        next username
+    return false
+  
+  function check_password(encrypted_password):
+    return encypted_password == correct_password
+  
+  function allow_access():
+    open role_file.txt
+    read role_file.txt
+    close role_file.txt
+  
+  function display_logout():
+    log_out = input("Would you like to log out? Yes or No")
+    
+  function logout():
+    system.clear_screen()
+    gather_information()
+    
+  gather_username_and_password()
+  encyprt_password(entered_password)
+  check_credentials(entered_username, encrypted_password)
+  
+  ```
