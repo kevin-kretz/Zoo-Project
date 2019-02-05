@@ -1,4 +1,4 @@
-# Southern New Hampshire University IT 145 - Final Project
+pt# Southern New Hampshire University IT 145 - Final Project
 <p>In this project, I choose the first option of making a Zoo Authentication System.  Please see <a href="/it_145_final_porject.pdf">Project Guidelines</a> for the full instructions and Rubric.</p>
 
 ## Process Documentation
@@ -18,7 +18,7 @@
     attempt_counter = attempt_counter + 1
     
   fuction encyrpt_password(entered_password):
-    return encrypted_password
+    encypted_password = md5_encrypt(entered_password)
     
   function check_credentials(entered_username):
     correct_username = check_username()
@@ -35,7 +35,7 @@
     
       
   function check_username():
-    for each_username in credentials_file:
+    for username in credentials_file:
       if entered_username == current_username:
         return true
       else:
@@ -49,16 +49,22 @@
     open role_file.txt
     read role_file.txt
     close role_file.txt
+    ask_logout()
   
-  function display_logout():
-    log_out = input("Would you like to log out? Yes or No")
+  function ask_logout():
+    logout = input("Type /"L/" when you are ready to log off:")
+    if logout == "L":
+      logout()
+      
     
   function logout():
     system.clear_screen()
-    gather_information()
-    
-  gather_username_and_password()
-  encyprt_password(entered_password)
-  check_credentials(entered_username, encrypted_password)
+    start_login()
   
+  function start_login()
+    gather_username_and_password()
+    encyprt_password(entered_password)
+    check_credentials(entered_username, encrypted_password)
+    
+  start_login()  
   ```
