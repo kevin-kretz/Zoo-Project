@@ -1,5 +1,5 @@
 # Southern New Hampshire University IT 145 - Final Project
-<p>In this project, I choose the first option of making a Zoo Authentication System.  Please see <a href="/instructions.pdf">Project Guidelines</a> for the full instructions and Rubric.</p>
+<p>In this project, I choose the first option of making a Zoo Authentication System.  Please see <a href="/Instructions.pdf">Project Guidelines</a> for the full instructions and Rubric.</p>
 
 ## Process Documentation
 ### Problem Statement / Scenario:
