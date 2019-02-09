@@ -10,61 +10,74 @@
 
 ### Pseudocode:
   ```
-  attempt_counter = 0
-  
-  function gather_username_and_password():
-    entered_username = input("Username:")
-    entered_password = input("Password:")
-    attempt_counter = attempt_counter + 1
-    
-  fuction encyrpt_password(entered_password):
-    encypted_password = md5_encrypt(entered_password)
-    
-  function check_credentials(entered_username):
-    correct_username = check_username()
-    if correct_username:
-      correct_password = check_password()
-        if correct_password:
-          allow_access()
-    else:
-      if attempt_counter < 3:
-        gather_username_and_password()
-      else:
-        print("You have entered incorrect credentials three times.  This program is now exiting.")
-        system.exit()
-    
-      
-  function check_username():
-    for username in credentials_file:
-      if entered_username == current_username:
-        return true
-      else:
-        next username
-    return false
-  
-  function check_password(encrypted_password):
-    return encypted_password == correct_password
-  
-  function allow_access():
-    open role_file.txt
-    read role_file.txt
-    close role_file.txt
-    ask_logout()
-  
-  function ask_logout():
-    logout = input("Type /"L/" when you are ready to log off:")
-    if logout == "L":
-      logout()
-      
-    
-  function logout():
-    system.clear_screen()
-    start_login()
+  SET attempt_counter = 0 
+  CALL start_login()
   
   function start_login()
-    gather_username_and_password()
-    encyprt_password(entered_password)
-    check_credentials(entered_username, encrypted_password)
+    SET entered_username = CALL get_username()
+    SET entered_password = CALL get_password()
+    INCREMENT attempt_counter
+    SET enrypted_password = CALL encyprt_password(entered_password)
+    CALL check_credentials(entered_username, encrypted_password)
+
+  function gather_username()
+    PRINT "Username:"
+    OBTAIN username
+    RETURN username
     
-  start_login()  
+  function gather_password()
+    PRINT "Password:"
+    OBTAIN password
+    RETURN password
+  
+  fuction encyrpt_password(entered_password)
+    CALCULATE encrypted_password using MD5
+    RETURN encrypted_password
+
+  function check_credentials(entered_username, encrypted_password)
+    SET correct_username = check_username()
+    IF correct_username
+      SET correct_password = check_password()
+      IF correct_password
+        CALL allow_access()
+      END IF
+    ELSE
+      IF attempt_counter < 3
+        CALL gather_username_and_password()
+      ELSE
+        PRINT "You have entered incorrect credentials three times.  This program is now exiting."
+        EXIT
+      END IF
+    END IF
+  
+  function check_username():
+    FOR each username in credentials_file
+      IF entered_username == current_username
+        RETURN true
+      ELSE:
+        go to next username in credentials file
+      END IF
+    END FOR
+    RETURN false
+  
+  function check_password(encrypted_password):
+    RETURN encypted_password == correct_password
+  
+  function allow_access():
+    OBTAIN user's role file
+    OPEN user's role file
+    DIPSLAY user's role file
+    CLOSE user's role file
+    CALL ask_logout()
+  
+  function ask_logout():
+    PRINT "Would you like to log out?"
+    OBTAIN user's log out choice
+    IF user's logout choice == true
+      CALL logout()
+    END IF
+      
+  function logout():
+    clear computer screen
+    CALL start_login()
   ```
