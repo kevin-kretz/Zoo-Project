@@ -1,3 +1,0 @@
-Hello, System Admin!
-
-As administrator, you have access to the zoo's main computer system.  This allows you to monitor users in the system and their roles.
