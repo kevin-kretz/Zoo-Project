@@ -1,3 +1,5 @@
+//This document was provided by SNHU
+
 Hello, Zookeeper!
 
 As zookeeper, you have access to all of the animals' information and their daily monitoring logs. This allows you to track their feeding habits, habitat conditions, and general welfare.
