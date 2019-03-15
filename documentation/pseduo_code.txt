@@ -1,0 +1,22 @@
+OBTAIN username
+OBTAIN password
+WHILE (user selection not equal to exit or 3 failed attempts)
+	SET encrypted password equal to encrypted equivalent of password
+	FOR every username in credentials file
+		IF username equals current username in credentials file
+			IF encrypted password equals user’s encrypted password file
+				OBTAIN user’s role
+				OPEN role file
+				PRINT role file
+				CLOSE role file
+			END IF
+		ELSE
+			Go to next username in credentials file
+		END IF
+	ELSE
+		INCREMENT failed attempts counter
+		OBTAIN username
+		OBTAIN password
+END WHILE
+PRINT "You have entered incorrect credentials three times.  This program is now exiting."
+EXIT
