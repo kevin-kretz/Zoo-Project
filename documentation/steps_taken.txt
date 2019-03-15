@@ -1,0 +1,85 @@
+Problem Statement / Scenario:
+I decided that I would work on a new authentication system.  This new authentication system for the zoo will need to manage both authentication and authorization.  The program will initiate by gathering a user input for their username and password. Then the program should convert the password to a hash using MD5. After converted, the system will need to compare the hash with the stored hash in the credentials file. Each time the user enters a username and password, there will be a counter that increases by 1. If there are 3 failed attempts, the user will be notified, and the program will exit. If the user enters the correct username and password, they will gain access to the system for the role that was used to log in.  The system will have information stored for three different roles.  Those are as follows: admin, veterinarian, and zookeeper.  Each role will have different permissions and levels of access. The system will also allow the user to log out. Once the user has logged out, the system will return to the login page to start over again.
+
+Overall Process:
+The problem statement was pretty simple to make, since it was pretty much handed to me.  The pseudocode was also pretty simple because I didn’t need to go into the fine details of how the program was going to execute the code.  Later on, I wished I did spend a little more time the pseudocode, it would have came in handy.
+When I first started coding my project, I used my pseudocode as a reference, which did make things a lot easier.  I found, while I was writing the code, adding objects like a User class made things quite a bit more complex.
+I started off making the simple things, like a Scanner and using the Scanner in a method to gather the user’s input of username and password.  When gathering the user’s password, I realized I should not store the user’s password anywhere.  So imported the MessageDigest and the FileNotFoundException utilities to my document and added in the encryption method provided to store the encrypted password in a variable.  Then I created an object named User, because I realized there will be several users and it would be nice to have properties such as username and password.  After I made the User class, I new I would need to make an array of Users to scan through all of the usernames and encrypted passwords in the credentials file.  I made a method that gathered the array of users and used regular expressions to gather all of the users’ properties.  After I made the Users array, I then worked on checking the credentials.  I made a method that counted the number of attempts a user made to login and scanned each attempt against all of the usernames in the Users array.  If the entered username did not match any of the username properties, then it incremented the attempt counter and prompts the user for the username and password again.  If the username matched one of the usernames in the Users array, it would then check the encrypted password.  If the encrypted password matches, it gather’s the user’s role and displays the file.  I then realized, I had no way of displaying the file yet, so I made that after I finished this method.  If the encrypted password doesn’t match, it increments the attempt counter and prompts the username and password again.  If the user made three incorrect attempts, it notified them that the program was going to exit and then did so.  Now that this method does what I want, I import the File library and create new Files for each of the roles in the zoo.  I made a method to print the file, with the user’s role as an argument.  This method checked which role was passed in, and made a Scanner accordingly.  Then while Scanner prints out each line of the file for the user to see.  Lastly, I made a method that would ask the user if they would like to logout.  If they do want to logout, the program exits.  If they don’t want to log out, the program takes the user back to the beginning and asks them for their username and password again.
+
+Pseudocode:
+CREATE a new USER temporaryUser
+DEFINE and SET attemptCounter to 0
+DEFINE and SET successfulLogin to false
+DEFINE and SET logout to false;
+
+WHILE logout is false
+  CALL startLogin
+  IF successfulLogin equals true
+    CALL promptLogout
+  END IF
+
+START startLogin
+  READ credentials file
+  SET attemptCounter equal 0;
+  SET successfulLogin to false;
+  
+  WHILE attemptCounter is less than 3 and successfulLogin is false
+    CALL getTemporaryUserCredentials
+    FOR each user in credentials file
+      IF temporaryUser's username equals the current username
+        IF temporaryUser's encrypted password equals current user's encrypted password
+          CALL printFile using the current user's role
+          SET successfulLogin equal to true
+          BREAK;
+        END IF
+      END IF
+    END FOR
+    INCRAMENT attemptCounter
+  END WHILE
+  
+  IF attemptCounter is 3 and successfulLogin is false
+    SET logout equal to true; 
+    PRINT "You have made too many unsuccessful attempts.  The program will now exit.
+    EXIT
+  END IF
+END startLogin
+
+START promptLogout
+  PRINT "Would you like to log out?"
+  IF the user's input is yes
+    SET logout equal to true
+  END IF
+END promptLogout
+
+START getTemporaryUserCredentials
+  PRINT "Username: "
+  SET temporaryUser's username to the user's input
+  PRINT"Password: "
+  SET temporaryUser's encrypted password to the user's input
+END getTemporaryUserCredentials
+
+START encrypt using an unencrypted password
+  encrypts the password given
+  RETURN the encrypted password
+END encrypt
+
+START printFile using the user's role
+  IF the role equals admin
+      PRINT the admin file
+  END IF
+  ELSE IF the role equals veterinarian
+      PRINT the veterinarian file
+  END ELSE IF
+  ELSE
+      PRINT the zookeeper file
+  END ELSE
+END printFile
+
+
+My pseudocode got a lot more complicated.  This mostly came from adding new variables and classes into my documentation.  Overall, my code still does the same things, I just added in the methods I used to make things a little cleaner.  
+
+Error Documentation:
+My first large error came when I was trying to gather the user’s username and password.  I kept getting an error saying it could not find the Scanner I made earlier in the main method.  The answer turned out to be relatively simple and I only needed to pass the Scanner in as in input for the method; however, this took me a lot of research and time to figure out.
+The next error I can across was while trying to encrypt the user’s password.  I copied and pasted the code as commented in the provided encryption file, but I got an error telling me that the exception must be caught or thrown to be solved.  This really confused me because in the encryption method, which was copied and pasted, it already declared that it was going to throw an exception.  After several hours of research, and trying to incorporate “try, catch” blocks into my code, I came across someone’s answer of just declaring in the main method that it would throw an exception.  This was indeed the issue since I was calling my new encryption method from my main method, the main method also need to declare it throws an exception.  I did not fully understand this at the time though and ran into the same issue again in error 3.
+As I was using a the credentials file to create an array of User objects, I ran into the same issue again.  This time, I didn’t understand what was happening and became really stressed because I had just spent so much time fixing this exact issue, and I wasn’t sure what was going on.  The next day, I sat down and immediately realized what was happening and added started to add some “try, catch” blocks to this method, seeing that I felt like I was going in the right direction with the last issue.  Then I remembered all I had to do, was declared the method would throw an exception again and it worked like a charm.  I was extremely happy when I solved this issue again, I truly understand what is going on when this happens and why thanks to all of my research!
+The final large error was while I was testing the my “final” version of my code.  The code was doing everything I wanted at this point.  I got the usernames, passwords, tracked the attempts, asked to logout after a successful attempt, but then I tested what happens when I say I don’t want to logout.  The code then mysteriously printed out the prompts for username and password, without allowing me to type in a response.  After I hit enter, it prompted me for my username as expected, and allowed a response.  I found that the issue was since I was using the same Scanner for both my username input and my logout prompt, that was then automatically passing in my logout response to the username and password prompt and causing the mysterious prompt.  I fixed this issue by having the Scanner move to the next line and start from a fresh slate, which had no inputs.
